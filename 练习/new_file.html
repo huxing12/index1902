@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/tool.js"></script>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.box{
+				width:200px;
+				height: 200px;
+				position:absolute;
+				top:50%;left: 50%;
+				background: #00FFFF;
+			}
+		</style>
+	<body>
+	 <div class="box">
+	 	<input type="button" name="" id="but"value="返回" />
+	 </div>
+	</body>
+	<script type="text/javascript">
+		var oDiv = document.getElementsByClassName("box")[0];
+//		console.log(oDiv);
+		var PositionArr = [];
+		oDiv.onmousedown = function(e){
+			var e = e||window.event;
+			var disx = e.offsetX;
+			var disy = e.offsetY;
+			PositionArr.push({left: oDiv.offsetLeft, top: oDiv.offsetTop});
+			document.onmousemove = function(e){
+				var e = e||window.event;
+				var left = e.pageX - disx;
+				var top = e.pageY - disy;
+				var leftx = window.innerWidth - oDiv.offsetWidth;
+				var topy = window.innerHeight - oDiv.offsetHeight;
+				if(left < 0){
+					left = 0;
+				}else if(left > leftx){
+					left = leftx;
+				}
+				if(top < 0){
+					top = 0;
+				}else if(top > topy){
+					top =topy;
+				}
+				oDiv.style.left = left + "px";
+				oDiv.style.top = top + "px";
+				
+				PositionArr.push({left: oDiv.offsetLeft, top: oDiv.offsetTop});
+				console.log(PositionArr);
+			}	
+			document.onmouseup = function(){
+				document.onmousemove = null;
+			}
+		}
+		var oBut = $id("but");
+		oBut.onclick = function(){
+			var index = PositionArr.length - 1;
+			var timer = setInterval(function(){
+				oDiv.style.left = PositionArr[index].left + "px";
+				oDiv.style.top = PositionArr[index].top + "px";
+				index --;
+				
+				if(index <= 0){
+				clearInterval(timer);
+				PositionArr = [];
+					}
+			},30);
+			
+		
+		}
+	</script>
+</html>

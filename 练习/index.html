@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			#box{
+				width:100px;
+				height:100px;
+				background: aqua;
+				position:absolute;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<!--请输入qq号：<input type="text"  id="txt" >
+		<input type="button" id="but"value="点击">
+		<ul>
+			<li>wosjdsd</li>
+			<li>wosjdsd</li>
+			<li>wosjdsd</li>
+			<li>wosjdsd</li>
+			<li>wosjdsd</li>
+			<li>wosjdsd</li>
+		</ul>
+		<div id="box">
+			
+		</div>
+		<img src="img/1.jpg"/>-->
+		<input type="button" id="but"value="点击">
+	</body>
+	<script src="js/tool.js"></script>
+	<script>
+		var oBtn = document.querySelector("#but");
+		var timer = null;
+		
+	
+		oBtn.onclick = function(){
+			var oImg = document.createElement("img");
+			oImg.src = "img/1.jpg" 
+			document.body.appendChild(oImg);
+			oImg.style.position = "absolute";
+				timer = setInterval(function(){
+					clearInterval(timer);
+					var _top = window.innerHeight - oImg.offsetHeight;
+					var _left = window.innerWidth - oImg.offsetWidth;
+					sport(oImg,{left : rand(0,_left),top : rand(0,_top)});
+				},rand(500,1000));
+			console.log(timer);
+				oImg.onmousedown = function(e){
+					clearInterval(timer);
+					var e = e||window.event;
+					var disx = e.offsetX;
+					var disy = e.offsetY;
+					document.onmousemove = function(e){
+						var oLeft = e.pageX - disx;
+						var oTop = e.pageY - disy;
+						oImg.style.left = oLeft + "px";
+						oImg.style.top = oTop + "px";
+					}
+					document.onmouseup = function(){
+				    document.onmousemove =null;
+			        }
+				}
+				drag()
+		
+		};
+		
+		var str = "中华人民共和国"
+		var str1 = "华民国"
+		var stri = str.split(" ");
+		for(var i = 0;i < str.length;i ++){
+			for(var j = 0; j < str1.length; j ++){
+				if(str[i] == str1.charAt(j)){
+					stri.splice(i,1);
+				}
+			}
+		}
+		console.log(stri.join(" "));
+		
+		
+		/*var index = 0;
+		var oImg = document.getElementsByTagName("img")[0];
+		function lun(){
+			var arr = ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
+			index ++;
+			if(index == arr.length){
+				index = 0;
+			}
+			oImg.src = "img/" + arr[index];
+		}
+		setInterval(function(){
+			lun();
+		},1);
+		
+		//间歇性计时器
+		var oDiv = document.getElementById("box");
+		var oBut = document.getElementById("but");
+		var timer = null;
+		oBut.onclick = function(){
+			setInterval(function(){
+				clearInterval(timer)
+				if(oDiv.offsetLeft >= 600){
+					oDiv.style.display = "none";
+				}else{
+					oDiv.style.left = oDiv.offsetLeft + 1 +"px";
+				}
+			},10);
+		}
+		
+		/*function yzm(){
+			var str ="";//存储验证码
+			for(var i = 1;i < 5;i ++){
+				var code = rand(48,122)
+
+					i --;
+				}else{
+					str += String.fromCharCode(code);
+				}
+			}
+			return str;
+		}
+		alert(yzm());
+		var oTxt = document.getElementById("txt");
+		var oBut = document.getElementById('but');
+		
+		oBut.onclick = function pan(){
+			var qq = oTxt.value;
+			if(qq == ""){
+				alert("请输入号码");
+			}else if(isNaN(qq)){
+				alert("不是数字");
+			}else if(qq.charAt(0) == "0"){
+				alert('首字母不能为0');
+			}else if(qq.length < 5 || qq.length > 10){
+				alert("位数不对，5-10之间");
+			}else{
+				alert("ok")
+			}
+			
+		}
+		
+		var oTxt = $id(txt);
+		var oBut = $id(but);
+		oBut.onclick = function(){
+			var str = oTxt.value;
+			var sum = str.split(',').reduce(function(one,two){
+				return parseInt(one) + parseInt(two);
+				
+			});
+			oTxt.value = sum;
+		}
+		
+		
+		function $id(id){
+			return document.getElementById(id);
+		}
+		function hasChar(str,ch){
+			for(var i = 0;i < str.length;i ++){
+				if(str.charAt(i) == ch){
+					return true;
+				}
+			}
+			return false;
+		}
+		alert(hasChar("dassa","t"));
+		function str(st){
+			var big = 0; small = 0; num = 0; nul = 0;
+			for(var i = 0;i < st.length;i ++){
+				var ch = st.charAt(i);
+				if (ch >= "A" && ch <= "Z" ){
+					 big ++;
+				}else if(ch >= "a" && ch <= "z"){
+					 small ++;
+				}else if(ch >= "1" && ch <= "9" ){
+					 num ++;
+				}else{
+					 nul ++;
+				}
+				
+			}
+			console.log(big,small,num,nul);
+		}
+		str("ewdwew334HHJKxs&&**");
+		
+		function fn(str){
+			for(var code = 32; code <= 127;code ++ ){
+				var ch = String.fromCharCode(code);
+				var sum = 0;
+				for(var i = 0;i < str.length;i ++){
+					if(ch == str.charAt(i)){
+						sum ++;
+					}
+				}
+				if(sum > 0){
+					alert(sum);
+				}
+			}
+			
+		}
+		fn("dskldHKJK");
+		function rand(min,max){
+			
+			return Math.floor(Math.random()*(max - min +1) + min)
+		}
+		function getColor(){
+			var str = "0123456789abcdef"
+			var color = "#"
+			for(var i = 0;i <= 6;i ++){
+				color += str.charAt(rand(0,16));
+			}
+			return color;
+		}
+		
+		
+		function color(){
+			return "rgb(" + rand(0,255) + "," + rand(0,255) + "," + rand(0,255) +")"//rgb(23,32,23);
+			}
+		var list = document.getElementsByTagName("li");
+		for(var i = 0;i < list.length;i ++){
+			list[i].style.background = color();//background:rgb();
+		}
+		console.log(color());*/
+	</script>
+</html>
